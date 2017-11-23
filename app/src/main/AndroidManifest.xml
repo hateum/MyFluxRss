@@ -21,6 +21,9 @@
         <activity
             android:name=".views.DetailsRssActivity"
             android:parentActivityName=".views.ListRssActivity" />
+
+        <activity android:name=".views.DetailsWebViewRssActivity" />
+
     </application>
 
 </manifest>

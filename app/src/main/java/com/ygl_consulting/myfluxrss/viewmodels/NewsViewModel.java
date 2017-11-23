@@ -8,20 +8,13 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
-import com.ygl_consulting.myfluxrss.BuildConfig;
 import com.ygl_consulting.myfluxrss.R;
 import com.ygl_consulting.myfluxrss.models.News;
-import com.ygl_consulting.myfluxrss.network.NewsFactory;
-import com.ygl_consulting.myfluxrss.network.NewsItemResponse;
-import com.ygl_consulting.myfluxrss.network.NewsResponse;
+import com.ygl_consulting.myfluxrss.network.NewsDataManager;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Hatem Noureddine on 23/11/2017.
@@ -62,55 +55,49 @@ public class NewsViewModel extends Observable {
     public void initializeViews() {
         newsLabel.set(View.GONE);
         newsRecycler.set(View.GONE);
+        showLoading();
+    }
+
+    private void showLoading() {
         newsProgress.set(View.VISIBLE);
         isLoading.set(false);
     }
 
     private void fetchNewsList() {
         isLoading.set(true);
-        NewsFactory.create().fetchNews(BuildConfig.RSS_URL).enqueue(new Callback<NewsResponse>() {
-            @Override
-            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
-                isLoading.set(false);
-                if (!response.isSuccessful()) {
-                    messageLabel.set(context.getString(R.string.error_loading_news));
-                    newsProgress.set(View.GONE);
-                    newsLabel.set(View.VISIBLE);
-                    newsRecycler.set(View.GONE);
-                    return;
-                }
-                changeNewsDataSet(convertToLocalModel(response.body().getNewsList()));
-                newsProgress.set(View.GONE);
-                newsLabel.set(View.GONE);
-                newsRecycler.set(View.VISIBLE);
-            }
 
-            @Override
-            public void onFailure(Call<NewsResponse> call, Throwable t) {
-                isLoading.set(false);
-                t.printStackTrace();
-                messageLabel.set(context.getString(R.string.error_loading_news));
-                newsProgress.set(View.GONE);
-                newsLabel.set(View.VISIBLE);
-                newsRecycler.set(View.GONE);
-            }
-        });
+        NewsDataManager.create()
+                .getNewsListAsync(new NewsDataManager.Callback() {
+                    @Override
+                    public void onSucess(@NonNull final ArrayList<News> news) {
+                        hideLoading();
+                        newsLabel.set(View.GONE);
+                        newsRecycler.set(View.VISIBLE);
+                        changeNewsDataSet(news);
+                    }
+
+                    @Override
+                    public void onFail() {
+                        hideLoading();
+                        messageLabel.set(context.getString(R.string.error_loading_news));
+                        newsLabel.set(View.VISIBLE);
+                        newsRecycler.set(View.GONE);
+
+                    }
+                });
+
+    }
+
+    /*inner*/ void hideLoading() {
+        isLoading.set(false);
+        newsProgress.set(View.GONE);
     }
 
     private void changeNewsDataSet(List<News> news) {
+        newsList.clear();
         newsList.addAll(news);
         setChanged();
         notifyObservers();
-    }
-
-    private ArrayList<News> convertToLocalModel(List<NewsItemResponse> newArticles) {
-        ArrayList<News> listNews = new ArrayList<>();
-        if (newArticles != null) {
-            for (NewsItemResponse article : newArticles) {
-                listNews.add(new News(article.getTitle(), article.getDescription(), article.getDate(), article.getLink(), article.getEnclosure().getLink()));
-            }
-        }
-        return listNews;
     }
 
     public List<News> getNewsList() {

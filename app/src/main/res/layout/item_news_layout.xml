@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/image_news"
-            android:background="#a6000000"
+            android:background="#7c000000"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -49,6 +49,7 @@
                 android:textColor="#8b8b8b"
                 android:textSize="14sp"
                 tools:text="date article" />
+
         </LinearLayout>
     </RelativeLayout>
 </layout>

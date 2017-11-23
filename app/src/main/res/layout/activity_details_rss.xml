@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -26,10 +27,6 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleGravity="center"
-                app:expandedTitleMarginBottom="@dimen/spacing_large"
-                app:expandedTitleMarginEnd="64dp"
-                app:expandedTitleMarginStart="48dp"
-                app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.TitleSize"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:title="@{newsDetailViewModel.title}">
 
@@ -46,7 +43,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:title="@string/details_news_title" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
@@ -61,34 +59,47 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@{newsDetailViewModel.date}"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
                     android:text="@{newsDetailViewModel.title}"
-                    android:textSize="12sp" />
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="title bla bla bla" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:text="@{newsDetailViewModel.date}"
+                    android:textColor="#8b8b8b"
+                    android:textSize="12sp"
+                    tools:text="date bla bla bla" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:text="@{newsDetailViewModel.description}"
-                    android:textSize="14sp" />
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    tools:text="Description bla bla bla" />
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@{newsDetailViewModel.link}"
+                    android:layout_gravity="center"
+                    android:onClick="@{newsDetailViewModel::onButtonSourceClick}"
+                    android:text="lien de l'article"
                     android:textSize="12sp" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

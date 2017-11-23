@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 /**
  * Created by Hatem Noureddine on 23/11/2017.
+ *
+ * @version 1.0
  */
 
 public class News implements Parcelable {

@@ -1,6 +1,7 @@
 package com.ygl_consulting.myfluxrss.views;
 
 import android.databinding.DataBindingUtil;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import java.util.List;
 
 /**
  * Created by Hatem Noureddine on 23/11/2017.
+ *
+ * @version 1.0
  */
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsAdapterViewHolder> {
@@ -44,11 +47,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsAdapterVie
     }
 
     public void setNewsList(List<News> newsList) {
+        //FIXME utilise diffUtils, c'est pas bon de raffraichir la liste en totalite.
+//        notifyDataSetChanged();
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffNewsCallback(this.newsList, newsList));
+        diffResult.dispatchUpdatesTo(this);
         this.newsList = newsList;
-        notifyDataSetChanged();
     }
 
-    public static class NewsAdapterViewHolder extends RecyclerView.ViewHolder {
+    static class NewsAdapterViewHolder extends RecyclerView.ViewHolder {
         ItemNewsLayoutBinding mItemNewsBinding;
 
         public NewsAdapterViewHolder(ItemNewsLayoutBinding itemNewsBinding) {

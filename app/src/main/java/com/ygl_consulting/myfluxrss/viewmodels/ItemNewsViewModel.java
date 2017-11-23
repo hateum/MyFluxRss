@@ -3,17 +3,20 @@ package com.ygl_consulting.myfluxrss.viewmodels;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.ygl_consulting.myfluxrss.models.News;
+import com.ygl_consulting.myfluxrss.network.RemoteImageManager;
 import com.ygl_consulting.myfluxrss.views.DetailsRssActivity;
 
 /**
  * Created by Hatem Noureddine on 23/11/2017.
+ *
+ * @version 1.0
  */
-
 public class ItemNewsViewModel extends BaseObservable {
 
     private News news;
@@ -25,8 +28,18 @@ public class ItemNewsViewModel extends BaseObservable {
     }
 
     @BindingAdapter("imageUrl")
-    public static void setImageUrl(ImageView imageView, String url) {
-        Glide.with(imageView.getContext()).load(url).into(imageView);
+    public static void loadImage(final ImageView imageView, String imageUrl) {
+        RemoteImageManager.create().getImageDrawableAsync(imageView.getContext(), imageUrl, new RemoteImageManager.Callback() {
+            @Override
+            public void onSucess(@NonNull Drawable resource) {
+                imageView.setImageDrawable(resource);
+            }
+
+            @Override
+            public void onFail(@NonNull Drawable errorDrawable) {
+                imageView.setImageDrawable(errorDrawable);
+            }
+        });
     }
 
     public String getTitle() {
@@ -38,7 +51,7 @@ public class ItemNewsViewModel extends BaseObservable {
     }
 
     public String getPicture() {
-        return news.imageUrl.toString();
+        return news.imageUrl;
     }
 
     public void onItemClick(View view) {

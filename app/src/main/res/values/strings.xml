@@ -2,5 +2,6 @@
     <string name="app_name">MyFluxRss</string>
 
     <string name="error_loading_news">Un probléme est survenue lors de la recuperation des news.</string>
-    <string name="default_loading_news">load news</string>
+    <string name="default_loading_news">récuperation des news</string>
+    <string name="details_news_title">Détails news</string>
 </resources>

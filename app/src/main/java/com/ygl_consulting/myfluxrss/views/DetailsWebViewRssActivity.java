@@ -8,9 +8,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.ygl_consulting.myfluxrss.R;
-import com.ygl_consulting.myfluxrss.databinding.ActivityDetailsRssBinding;
+import com.ygl_consulting.myfluxrss.databinding.ActivityDetailsWebviewRssBinding;
 import com.ygl_consulting.myfluxrss.models.News;
-import com.ygl_consulting.myfluxrss.viewmodels.NewsDetailsViewModel;
+import com.ygl_consulting.myfluxrss.viewmodels.NewsDetailsWebViewModel;
 
 /**
  * Created by Hatem Noureddine on 23/11/2017.
@@ -18,14 +18,14 @@ import com.ygl_consulting.myfluxrss.viewmodels.NewsDetailsViewModel;
  * @version 1.0
  */
 
-public class DetailsRssActivity extends AppCompatActivity {
+public class DetailsWebViewRssActivity extends AppCompatActivity {
 
     private static final String EXTRA_NEWS = "EXTRA_NEWS";
 
-    private ActivityDetailsRssBinding activityDetailsRssBinding;
+    private ActivityDetailsWebviewRssBinding activityDetailsWebviewRssBinding;
 
-    public static Intent launchDetail(Context context, News news) {
-        Intent intent = new Intent(context, DetailsRssActivity.class);
+    public static Intent launchDetailWebView(Context context, News news) {
+        Intent intent = new Intent(context, DetailsWebViewRssActivity.class);
         intent.putExtra(EXTRA_NEWS, news);
         return intent;
     }
@@ -33,9 +33,9 @@ public class DetailsRssActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityDetailsRssBinding =
-                DataBindingUtil.setContentView(this, R.layout.activity_details_rss);
-        setSupportActionBar(activityDetailsRssBinding.toolbar);
+        activityDetailsWebviewRssBinding =
+                DataBindingUtil.setContentView(this, R.layout.activity_details_webview_rss);
+        setSupportActionBar(activityDetailsWebviewRssBinding.toolbar);
         displayHomeAsUpEnabled();
         getExtrasFromIntent();
     }
@@ -50,7 +50,7 @@ public class DetailsRssActivity extends AppCompatActivity {
 
     private void getExtrasFromIntent() {
         News news = getIntent().getParcelableExtra(EXTRA_NEWS);
-        NewsDetailsViewModel newsDetailsViewModel = new NewsDetailsViewModel(news, getApplicationContext());
-        activityDetailsRssBinding.setNewsDetailViewModel(newsDetailsViewModel);
+        NewsDetailsWebViewModel newsDetailsViewModel = new NewsDetailsWebViewModel(news);
+        activityDetailsWebviewRssBinding.setNewsDetailsWebViewModel(newsDetailsViewModel);
     }
 }
