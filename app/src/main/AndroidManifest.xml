@@ -22,7 +22,9 @@
             android:name=".views.DetailsRssActivity"
             android:parentActivityName=".views.ListRssActivity" />
 
-        <activity android:name=".views.DetailsWebViewRssActivity" />
+        <activity
+            android:name=".views.DetailsWebViewRssActivity"
+            android:parentActivityName=".views.DetailsRssActivity" />
 
     </application>
 

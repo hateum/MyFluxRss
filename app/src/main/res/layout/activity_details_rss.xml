@@ -63,35 +63,30 @@
                 android:padding="10dp">
 
                 <TextView
+                    style="@style/details_title_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:gravity="center"
                     android:text="@{newsDetailViewModel.title}"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
                     tools:text="title bla bla bla" />
 
                 <TextView
+                    style="@style/details_date_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="10dp"
                     android:text="@{newsDetailViewModel.date}"
-                    android:textColor="#8b8b8b"
-                    android:textSize="12sp"
                     tools:text="date bla bla bla" />
 
                 <TextView
+                    style="@style/details_description_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
                     android:text="@{newsDetailViewModel.description}"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
                     tools:text="Description bla bla bla" />
 
                 <Button

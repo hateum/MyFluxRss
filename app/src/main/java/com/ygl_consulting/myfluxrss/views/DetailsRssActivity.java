@@ -44,6 +44,7 @@ public class DetailsRssActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.details_news_title);
         }
         setTitle(R.string.details_news_title);
     }
